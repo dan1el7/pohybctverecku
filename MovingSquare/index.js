@@ -1,31 +1,44 @@
-    const ctverecek = document.getElementById("ctverecek"); // ctverecek
-    const souradnice = document.getElementById("souradnice"); // souradnice
+class Ctverecek {
+    constructor(ctverecekId, souradniceId, step = 5, poziceX = 135, poziceY = 135) {
+        this.ctverecek = document.getElementById(ctverecekId);
+        this.souradnice = document.getElementById(souradniceId);
+        this.step = step;
+        this.x = poziceX;
+        this.y = poziceY;
 
-    const step = 5; //rychlost
-    let x = 135;
-    let y = 135; //aby se pri spusteni kostka spawnula uprostred
+        this.init();
+    }
 
-    document.addEventListener("keydown", (event) => {
+    init() {
+        document.addEventListener("keydown", (event) => this.pohyb(event));
+        this.ZmenaPozice();
+    }
+
+    pohyb(event) {
         switch (event.key) {
             case "w":
-                if (y > 0) y -= step;
+                if (this.y > 0) this.y -= this.step;
                 break;
             case "s":
-                if (y < 270) y += step; //270 protoze border je 300x300 a ctverecek ma 30px
+                if (this.y < 270) this.y += this.step;
                 break;
             case "a":
-                if (x > 0) x -= step;
+                if (this.x > 0) this.x -= this.step;
                 break;
             case "d":
-                if (x < 270) x += step;
+                if (this.x < 270) this.x += this.step;
                 break;
             default:
                 return;
         }
+        this.ZmenaPozice();
+    }
 
-        // Aktualizace pozice čtverečku
-        ctverecek.style.top = `${y}px`;
-        ctverecek.style.left = `${x}px`;
+    ZmenaPozice() {
+        this.ctverecek.style.top = `${this.y}px`;
+        this.ctverecek.style.left = `${this.x}px`;
+        this.souradnice.textContent = `${this.x}, ${this.y}`;
+    }
+}
 
-        souradnice.textContent = `${x}, ${y}`; //aktualizuje souradnice
-    });
+const ctverecek = new Ctverecek("ctverecek", "souradnice");
