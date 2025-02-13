@@ -7,16 +7,16 @@
 
     document.addEventListener("keydown", (event) => {
         switch (event.key) {
-            case "w": // Pohyb nahoru
+            case "w":
                 if (y > 0) y -= step;
                 break;
-            case "s": // Pohyb dolů
+            case "s":
                 if (y < 270) y += step; //270 protoze border je 300x300 a ctverecek ma 30px
                 break;
-            case "a": // Pohyb doleva
+            case "a":
                 if (x > 0) x -= step;
                 break;
-            case "d": // Pohyb doprava
+            case "d":
                 if (x < 270) x += step;
                 break;
             default:
